@@ -1,4 +1,4 @@
-const { gmd } = require("../gift");
+const { gmd } = require("../pop");
 
 gmd({
     pattern: "sendimage",
