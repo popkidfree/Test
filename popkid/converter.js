@@ -1,4 +1,4 @@
-const { gmd, toAudio, toVideo, toPtt, stickerToImage, gmdFancy, gmdRandom } = require("../gift");
+const { gmd, toAudio, toVideo, toPtt, stickerToImage, gmdFancy, gmdRandom } = require("../pop");
 const acrcloud = require("acrcloud");
 const fs = require("fs").promises;
 const { exec } = require("child_process");
