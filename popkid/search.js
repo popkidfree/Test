@@ -1,4 +1,4 @@
-const { gmd } = require("../gift"),
+const { gmd } = require("../pop"),
         acrcloud = require("acrcloud"),
         fs = require("fs").promises,
         stream = require("stream"),
