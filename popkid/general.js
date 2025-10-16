@@ -12,93 +12,103 @@ const { gmd, commands, monospace, formatBytes } = require("../pop"),
 
 
 
-gmd({ 
-  pattern: "menu", 
-  aliases: ['help', 'allmenu', 'mainmenu'],
+gmd({
+  pattern: "menu",
+  aliases: ["help", "allmenu", "mainmenu"],
   react: "🪀",
   category: "general",
   description: "Fetch bot main menu",
 }, async (from, Gifted, conText) => {
-      const { mek, sender, react, pushName, botPic, botMode, botVersion, botName, botFooter, timeZone, botPrefix, newsletterJid } = conText;
-    function formatUptime(seconds) {
-            const days = Math.floor(seconds / (24 * 60 * 60));
-            seconds %= 24 * 60 * 60;
-            const hours = Math.floor(seconds / (60 * 60));
-            seconds %= 60 * 60;
-            const minutes = Math.floor(seconds / 60);
-            seconds = Math.floor(seconds % 60);
-            return `${days}d ${hours}h ${minutes}m ${seconds}s`;
-        }
+  const { mek, sender, react, pushName, botPic, botMode, botVersion, botName, botFooter, timeZone, botPrefix, newsletterJid } = conText;
 
-        const now = new Date();
-        const date = new Intl.DateTimeFormat('en-GB', {
-            timeZone: timeZone,
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-        }).format(now);
-
-        const time = new Intl.DateTimeFormat('en-GB', {
-            timeZone: timeZone,
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: true
-        }).format(now);
-
-        const uptime = formatUptime(process.uptime());
-        const totalCommands = commands.filter((command) => command.pattern).length;
-
-        const categorized = commands.reduce((menu, gmd) => {
-            if (gmd.pattern && !gmd.dontAddCommandList) {
-                if (!menu[gmd.category]) menu[gmd.category] = [];
-                menu[gmd.category].push(gmd.pattern);
-            }
-            return menu;
-        }, {});
-      let header = `╭══〘〘 *${monospace(botName)}* 〙〙═⊷
-┃❍ *Mᴏᴅᴇ:*  ${monospace(botMode)}
-┃❍ *Pʀᴇғɪx:*  [ ${monospace(botPrefix)} ]
-┃❍ *Usᴇʀ:*  ${monospace(pushName)}
-┃❍ *Pʟᴜɢɪɴs:*  ${monospace(totalCommands.toString())}
-┃❍ *Vᴇʀsɪᴏɴ:*  ${monospace(botVersion)}
-┃❍ *Uᴘᴛɪᴍᴇ:*  ${monospace(uptime)}
-┃❍ *Tɪᴍᴇ Nᴏᴡ:*  ${monospace(time)}
-┃❍ *Dᴀᴛᴇ Tᴏᴅᴀʏ:*  ${monospace(date)}
-┃❍ *Tɪᴍᴇ Zᴏɴᴇ:*  ${monospace(timeZone)}
-┃❍ *Sᴇʀᴠᴇʀ Rᴀᴍ:*  ${monospace(ram)}
-╰═════════════════⊷\n${readmore}\n`;
-
-        const formatCategory = (category, gmds) => {
-            const title = `╭━━━━❮ *${monospace(category.toUpperCase())}* ❯━⊷ \n`;
-            const body = gmds.map(gmd => `┃◇ ${monospace(botPrefix + gmd)}`).join('\n');
-            const footer = `╰━━━━━━━━━━━━━━━━━⊷\n`;
-            return `${title}${body}\n${footer}\n`;
-        };
-
-        let menu = header;
-        for (const [category, gmds] of Object.entries(categorized)) {
-            menu += formatCategory(category, gmds) + '\n';
-        }
-        
-    const giftedMess = {
-        image: { url: botPic },
-        caption: `${menu.trim()}\n\n> *${botFooter}*`,
-        contextInfo: {
-          mentionedJid: [sender],
-          forwardingScore: 5,
-          isForwarded: true,
-          forwardedNewsletterMessageInfo: {
-            newsletterJid: newsletterJid,
-            newsletterName: botName,
-            serverMessageId: 143
-          }
-        }
-      };
-      await Gifted.sendMessage(from, giftedMess, { quoted: mek });
-      await react("✅");
+  function formatUptime(seconds) {
+    const days = Math.floor(seconds / (24 * 60 * 60));
+    seconds %= 24 * 60 * 60;
+    const hours = Math.floor(seconds / (60 * 60));
+    seconds %= 60 * 60;
+    const minutes = Math.floor(seconds / 60);
+    seconds = Math.floor(seconds % 60);
+    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
   }
-);
+
+  const now = new Date();
+  const date = new Intl.DateTimeFormat("en-GB", {
+    timeZone: timeZone,
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  }).format(now);
+
+  const time = new Intl.DateTimeFormat("en-GB", {
+    timeZone: timeZone,
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  }).format(now);
+
+  const uptime = formatUptime(process.uptime());
+  const totalCommands = commands.filter(cmd => cmd.pattern).length;
+
+  const categorized = commands.reduce((menu, cmd) => {
+    if (cmd.pattern && !cmd.dontAddCommandList) {
+      if (!menu[cmd.category]) menu[cmd.category] = [];
+      menu[cmd.category].push(cmd.pattern);
+    }
+    return menu;
+  }, {});
+
+  // 🌟 Stylish Header
+  const header = `
+╭─❖  ${botName}  ❖─╮
+│
+│  💠 *Status:*  𝐂𝐎𝐍𝐍𝐄𝐂𝐓𝐄𝐃 ✅
+│  ⚙️ *Mode:*  ${botMode}
+│  🔰 *Prefix:*  [ ${botPrefix} ]
+│  👤 *User:*  ${pushName}
+│  🧩 *Plugins:*  ${totalCommands.toString()}
+│  🪄 *Version:*  ${botVersion}
+│  ⏱ *Uptime:*  ${uptime}
+│  🕓 *Time:*  ${time}
+│  📅 *Date:*  ${date}
+│  🌍 *TimeZone:*  ${timeZone}
+│
+╰───────────────────────❖
+${readmore}
+`.trim();
+
+  // 🎛 Category Formatter
+  const formatCategory = (category, cmds) => {
+    const title = `╭─⌬  *${category.toUpperCase()}*  ⌬─╮\n`;
+    const body = cmds.map(cmd => `│  ✦ ${botPrefix + cmd}`).join("\n");
+    const footer = `╰───────────────────────╯\n`;
+    return `${title}${body}\n${footer}`;
+  };
+
+  // 🧾 Build Menu
+  let menu = `${header}\n\n`;
+  for (const [category, cmds] of Object.entries(categorized)) {
+    menu += `${formatCategory(category, cmds)}\n`;
+  }
+
+  const message = {
+    image: { url: botPic },
+    caption: `${menu.trim()}\n\n> *${botFooter}*`,
+    contextInfo: {
+      mentionedJid: [sender],
+      forwardingScore: 5,
+      isForwarded: true,
+      forwardedNewsletterMessageInfo: {
+        newsletterJid: newsletterJid,
+        newsletterName: botName,
+        serverMessageId: 143
+      }
+    }
+  };
+
+  await Gifted.sendMessage(from, message, { quoted: mek });
+  await react("✅");
+});
 
 
 gmd({
