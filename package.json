@@ -9,16 +9,16 @@
     "node": "22.x"
   },
   "scripts": {
-    "start": "pm2 start index.js --name POPKIDXTR",
-    "stop": "pm2 stop POPKIDXTR",
-    "restart": "pm2 restart POPKIDXTR"
+    "start": "pm2 start index.js --name POPKID-XTR",
+    "stop": "pm2 stop POPKID-XTR",
+    "restart": "pm2 restart POPKID-XTR"
   },
   "keywords": [
-    "gifted-md",
+    "POPKID-XTR",
     "whatsapp-bot",
-    "giftedtech"
+    "POPKID"
   ],
-  "author": "GiftedTech",
+  "author": "Popkid",
   "license": "MIT",
   "dependencies": {
     "@vitalets/google-translate-api": "^9.2.0",
@@ -58,10 +58,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mauricegift/gifted-md.git"
+    "url": "git+https://github.com/kenyanpopkid/POPKID-XTR.git"
   },
   "bugs": {
-    "url": "https://github.com/mauricegift/gifted-md/issues"
+    "url": "https://github.com/kenyanpopkid/POPKID-XTR/issues"
   },
-  "homepage": "https://github.com/mauricegift/gifted-md#readme"
+  "homepage": "https://github.com/kenyanpopkid/POPKID-XTR#readme"
 }
