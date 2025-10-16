@@ -1,17 +1,17 @@
 {
-  "name": "gifted-md",
+  "name": "POPKID-XTR",
   "version": "5.0.0",
-  "description": "I am Gifted-Md, a Simple WhatsApp Bot built with NodeJs to Enhance WhatsApp Communication experience",
+  "description": "I am POPKID-XTR, a Simple WhatsApp Bot built with NodeJs to Enhance WhatsApp Communication experience",
   "website": "https://session.giftedtech.co.ke",
-  "dev_email": "mauricegift@gmail.com",
-  "logo": "https://files.catbox.moe/52699c.jpg",
-  "keywords": ["gifted-md"],
-  "repository": "https://github.com/mauricegift/gifted-md",
+  "dev_email": "iantaracha@gmail.com",
+  "logo": "https://i.ibb.co/fTCrW08/373b5c2300fc0f90e39b3797f2db358b.jpg",
+  "keywords": ["POPKID-XTR"],
+  "repository": "https://github.com/kenyanpopkid/POPKID-XTR",
   "success_url": "/",
   "stack": "container",
   "env": {
     "SESSION_ID": {
-      "description": "Put your session-id here. Must Start with 'PRINCE-MDX~'",
+      "description": "Put your session-id here. Must Start with 'POPKID~'",
       "required": true,
       "value": ""
     },  
@@ -23,12 +23,12 @@
     "OWNER_NAME": {
       "description": "Put Owner Name Here",
       "required": true,
-      "value": "PRINCE"
+      "value": "POPKID"
     },
     "OWNER_NUMBER": {
       "description": "Put only one Owner Number Here ie 237xxxxx",
       "required": true,
-      "value": "237677224245"
+      "value": "254732297194"
     },
     "ANTI_DELETE": {
       "description": "Can be set to 'inboxonly' to recover for personal chats only, 'chatsonly' to recover for groups and personal chats only or 'true' to recover all chats and status updates. Default is 'false'. You can set up this later using .antidelete",
@@ -94,7 +94,7 @@
     "BOT_NAME": {
       "description": "You can edit this but maintain font style for uniformity. Use 'Fonts Type Keyboard' for styles.",
       "required": false,
-      "value": "𝐏𝐑𝐈𝐍𝐂𝐄 𝐌𝐃𝐗"
+      "value": "𝐏𝐎𝐏𝐊𝐈𝐃-𝐗𝐓𝐑"
     },
     "PREFIX": {
       "description": "Your Bot Prefix (default: .) You can put your own custom prefix",
