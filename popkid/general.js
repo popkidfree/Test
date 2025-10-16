@@ -1,4 +1,4 @@
-const { gmd, commands, monospace, formatBytes } = require("../gift"),
+const { gmd, commands, monospace, formatBytes } = require("../pop"),
       fs = require('fs'), 
       axios = require('axios'),
       BOT_START_TIME = Date.now(),
