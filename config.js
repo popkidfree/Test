@@ -40,9 +40,9 @@ module.exports = {
     AUTO_BIO : process.env.AUTO_BIO || 'false',
     AUTO_BLOCK: process.env.AUTO_BLOCK || '212,233',
     YT: process.env.YT || 'youtube.com/@pop_kid254',
-    NEWSLETTER_JID: process.env.NEWSLETTER_JID || '120363408839929349@newsletter',
-    NEWSLETTER_URL: process.env.NEWSLETTER_URL || 'https://whatsapp.com/channel/0029Vb3hlgX5kg7G0nFggl0Y',
-    BOT_REPO: process.env.BOT_REPO || 'mauricegift/gifted-md',
+    NEWSLETTER_JID: process.env.NEWSLETTER_JID || '120363419140572186@newsletter',
+    NEWSLETTER_URL: process.env.NEWSLETTER_URL || 'https://whatsapp.com/channel/0029VbBTlzoLtOjGXhhD4I2d',
+    BOT_REPO: process.env.BOT_REPO || 'kenyanpopkid/POPKID-XTR',
     PACK_NAME: process.env.PACK_NAME || '𝐏𝐎𝐏𝐊𝐈𝐃 𝐗𝐓𝐑',
     PACK_AUTHOR: process.env.PACK_AUTHOR || '𝐏𝐎𝐏𝐊𝐈𝐃'
 };
