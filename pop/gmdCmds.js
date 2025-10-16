@@ -33,4 +33,4 @@ function gmd(obj, functions) {
 
 module.exports = { gmd, commands, evt };
 
-evt.commands = commands;  // this was hell and it took me 3 hours to fix since bot wasn't responding to commands after i had changed more bot structure logic
+evt.commands = commands;
