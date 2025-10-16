@@ -364,8 +364,8 @@ async function loadSession() {
 
         const [header, b64data] = config.SESSION_ID.split('~');
 
-        if (header !== "Gifted" || !b64data) {
-            throw new Error("❌ Invalid session format. Expected 'Gifted~.....'");
+        if (header !== "POPKID" || !b64data) {
+            throw new Error("❌ Invalid session format. Expected 'POPKID~.....'");
         }
 
         const cleanB64 = b64data.replace('...', '');
