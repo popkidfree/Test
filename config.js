@@ -13,7 +13,7 @@ module.exports = {
     FOOTER : process.env.FOOTER || 'ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴘᴏᴘᴋɪᴅ',
     CAPTION : process.env.CAPTION || '𝐏𝐎𝐏𝐊𝐈𝐃 𝐁𝐎𝐓',
     VERSION: process.env.VERSION || '5.0.0',
-    BOT_PIC : process.env.BOT_PIC || 'https://gitcdn.giftedtech.co.ke/image/AZO_image.jpg',            
+    BOT_PIC : process.env.BOT_PIC || 'https://i.ibb.co/fTCrW08/373b5c2300fc0f90e39b3797f2db358b.jpg',            
     MODE: process.env.MODE || "private",
     PM_PERMIT: process.env.PM_PERMIT || 'false',
     WARN_COUNT : process.env.WARN_COUNT || '3' ,
