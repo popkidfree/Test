@@ -751,99 +751,103 @@ Gifted.getLidFromJid = async (jid) => {
                 setTimeout(async () => {
                     try {
                         const totalCommands = commands.filter((command) => command.pattern).length;
-                        console.log('💜 Connected to Whatsapp, Active!');
+                        console.log('💜Popkid Xtr Connected to Whatsapp✅!');
                             
                         if (startMess === 'true') {
                             const md = botMode === 'public' ? "public" : "private";
                             const connectionMsg = `
-*${botName} 𝐂𝐎𝐍𝐍𝐄𝐂𝐓𝐄𝐃*
+*╭─❖  ${botName}  ❖─╮*
+│
+│  💠 *Status:* 𝐂𝐎𝐍𝐍𝐄𝐂𝐓𝐄𝐃 ✅
+│
+│  ⚙️ *Prefix:* [ ${botPrefix} ]
+│  📦 *Plugins:* ${totalCommands.toString()}
+│  🔘 *Mode:* ${md}
+│  👑 *Owner:* ${ownerNumber}
+│  🎓 *Tutorials:* ${config.YT}
+│  📰 *Updates:* ${newsletterUrl}
+│
+*╰───────────────❖╯*
 
-𝐏𝐫𝐞𝐟𝐢𝐱       : *[ ${botPrefix} ]*
-𝐏𝐥𝐮𝐠𝐢𝐧𝐬      : *${totalCommands.toString()}*
-𝐌𝐨𝐝𝐞        : *${md}*
-𝐎𝐰𝐧𝐞𝐫       : *${ownerNumber}*
-𝐓𝐮𝐭𝐨𝐫𝐢𝐚𝐥𝐬     : *${config.YT}*
-𝐔𝐩𝐝𝐚𝐭𝐞𝐬      : *${newsletterUrl}*
+> 💫 *${botCaption}*`;
 
-> *${botCaption}*`;
+await Gifted.sendMessage(
+    Gifted.user.id,
+    {
+        text: connectionMsg,
+        ...createContext(botName, {
+            title: "BOT INTEGRATED",
+            body: "Status: Ready for Use"
+        })
+    },
+    {
+        disappearingMessagesInChat: true,
+        ephemeralExpiration: 300,
+    }
+);
+}
+} catch (err) {
+    console.error("Post-connection setup error:", err);
+}
+}, 5000);
+}
 
-                            await Gifted.sendMessage(
-                                Gifted.user.id,
-                                {
-                                    text: connectionMsg,
-                                    ...createContext(botName, {
-                                        title: "BOT INTEGRATED",
-                                        body: "Status: Ready for Use"
-                                    })
-                                },
-                                {
-                                    disappearingMessagesInChat: true,
-                                    ephemeralExpiration: 300,
-                                }
-                            );
-                        }
-                    } catch (err) {
-                        console.error("Post-connection setup error:", err);
-                    }
-                }, 5000);
-            }
+if (connection === "close") {
+    const reason = new Boom(lastDisconnect?.error)?.output?.statusCode;
 
-            if (connection === "close") {
-                const reason = new Boom(lastDisconnect?.error)?.output?.statusCode;
-                
-                console.log(`Connection closed due to: ${reason}`);
-                
-                if (reason === DisconnectReason.badSession) {
-                    console.log("Bad session file, delete it and scan again");
-                    try {
-                        await fs.remove(__dirname + "/pop/session");
-                    } catch (e) {
-                        console.error("Failed to remove session:", e);
-                    }
-                    process.exit(1);
-                } else if (reason === DisconnectReason.connectionClosed) {
-                    console.log("Connection closed, reconnecting...");
-                    setTimeout(() => reconnectWithRetry(), RECONNECT_DELAY);
-                } else if (reason === DisconnectReason.connectionLost) {
-                    console.log("Connection lost from server, reconnecting...");
-                    setTimeout(() => reconnectWithRetry(), RECONNECT_DELAY);
-                } else if (reason === DisconnectReason.connectionReplaced) {
-                    console.log("Connection replaced, another new session opened");
-                    process.exit(1);
-                } else if (reason === DisconnectReason.loggedOut) {
-                    console.log("Device logged out, delete session and scan again");
-                    try {
-                        await fs.remove(__dirname + "/pop/session");
-                    } catch (e) {
-                        console.error("Failed to remove session:", e);
-                    }
-                    process.exit(1);
-                } else if (reason === DisconnectReason.restartRequired) {
-                    console.log("Restart required, restarting...");
-                    setTimeout(() => reconnectWithRetry(), RECONNECT_DELAY);
-                } else if (reason === DisconnectReason.timedOut) {
-                    console.log("Connection timed out, reconnecting...");
-                    setTimeout(() => reconnectWithRetry(), RECONNECT_DELAY * 2);
-                } else {
-                    console.log(`Unknown disconnect reason: ${reason}, attempting reconnection...`);
-                    setTimeout(() => reconnectWithRetry(), RECONNECT_DELAY);
-                }
-            }
-        });
+    console.log(`Connection closed due to: ${reason}`);
 
-        const cleanup = () => {
-            if (store) {
-                store.destroy();
-            }
-        };
-
-        process.on('SIGINT', cleanup);
-        process.on('SIGTERM', cleanup);
-
-    } catch (error) {
-        console.error('Socket initialization error:', error);
+    if (reason === DisconnectReason.badSession) {
+        console.log("Bad session file, delete it and scan again");
+        try {
+            await fs.remove(__dirname + "/pop/session");
+        } catch (e) {
+            console.error("Failed to remove session:", e);
+        }
+        process.exit(1);
+    } else if (reason === DisconnectReason.connectionClosed) {
+        console.log("Connection closed, reconnecting...");
+        setTimeout(() => reconnectWithRetry(), RECONNECT_DELAY);
+    } else if (reason === DisconnectReason.connectionLost) {
+        console.log("Connection lost from server, reconnecting...");
+        setTimeout(() => reconnectWithRetry(), RECONNECT_DELAY);
+    } else if (reason === DisconnectReason.connectionReplaced) {
+        console.log("Connection replaced, another new session opened");
+        process.exit(1);
+    } else if (reason === DisconnectReason.loggedOut) {
+        console.log("Device logged out, delete session and scan again");
+        try {
+            await fs.remove(__dirname + "/pop/session");
+        } catch (e) {
+            console.error("Failed to remove session:", e);
+        }
+        process.exit(1);
+    } else if (reason === DisconnectReason.restartRequired) {
+        console.log("Restart required, restarting...");
+        setTimeout(() => reconnectWithRetry(), RECONNECT_DELAY);
+    } else if (reason === DisconnectReason.timedOut) {
+        console.log("Connection timed out, reconnecting...");
+        setTimeout(() => reconnectWithRetry(), RECONNECT_DELAY * 2);
+    } else {
+        console.log(`Unknown disconnect reason: ${reason}, attempting reconnection...`);
         setTimeout(() => reconnectWithRetry(), RECONNECT_DELAY);
     }
+}
+});
+
+const cleanup = () => {
+    if (store) {
+        store.destroy();
+    }
+};
+
+process.on('SIGINT', cleanup);
+process.on('SIGTERM', cleanup);
+
+} catch (error) {
+    console.error('Socket initialization error:', error);
+    setTimeout(() => reconnectWithRetry(), RECONNECT_DELAY);
+}
 }
 
 async function reconnectWithRetry() {
@@ -854,9 +858,9 @@ async function reconnectWithRetry() {
 
     reconnectAttempts++;
     const delay = Math.min(RECONNECT_DELAY * Math.pow(2, reconnectAttempts - 1), 300000);
-    
+
     console.log(`Reconnection attempt ${reconnectAttempts}/${MAX_RECONNECT_ATTEMPTS} in ${delay}ms...`);
-    
+
     setTimeout(async () => {
         try {
             await startGifted();
