@@ -49,7 +49,7 @@ const {
     verifyJidState,
     GiftedPresence,
     GiftedAntiDelete
-} = require("./gift");
+} = require("./pop");
 
 const { 
     Sticker, 
@@ -103,11 +103,11 @@ let Gifted;
 
 logger.level = "silent";
 
-app.use(express.static("gift"));
-app.get("/", (req, res) => res.sendFile(__dirname + "/gift/gifted.html"));
+app.use(express.static("pop"));
+app.get("/", (req, res) => res.sendFile(__dirname + "/pop/popkid.html"));
 app.listen(PORT, () => console.log(`Server Running on Port: ${PORT}`));
 
-const sessionDir = path.join(__dirname, "gift", "session");
+const sessionDir = path.join(__dirname, "pop", "session");
 
 loadSession();
 
@@ -328,7 +328,7 @@ Gifted.ev.on("messages.upsert", async ({ messages }) => {
 
             if (autoReplyStatus === "true") {
                 if (mek.key.fromMe) return;
-                const customMessage = statusReplyText || '✅ Status Viewed By Gifted-Md';
+                const customMessage = statusReplyText || '✅ Status Viewed By popkid-Md';
                 await Gifted.sendMessage(
                     fromJid,
                     { text: customMessage },
@@ -342,7 +342,7 @@ Gifted.ev.on("messages.upsert", async ({ messages }) => {
 });
 
          try {
-            const pluginsPath = path.join(__dirname, "gifted");
+            const pluginsPath = path.join(__dirname, "popkid");
             fs.readdirSync(pluginsPath).forEach((fileName) => {
                 if (path.extname(fileName).toLowerCase() === ".js") {
                     try {
@@ -796,7 +796,7 @@ Gifted.getLidFromJid = async (jid) => {
                 if (reason === DisconnectReason.badSession) {
                     console.log("Bad session file, delete it and scan again");
                     try {
-                        await fs.remove(__dirname + "/gift/session");
+                        await fs.remove(__dirname + "/pop/session");
                     } catch (e) {
                         console.error("Failed to remove session:", e);
                     }
@@ -813,7 +813,7 @@ Gifted.getLidFromJid = async (jid) => {
                 } else if (reason === DisconnectReason.loggedOut) {
                     console.log("Device logged out, delete session and scan again");
                     try {
-                        await fs.remove(__dirname + "/gift/session");
+                        await fs.remove(__dirname + "/pop/session");
                     } catch (e) {
                         console.error("Failed to remove session:", e);
                     }
