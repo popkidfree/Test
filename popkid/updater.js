@@ -1,4 +1,4 @@
-const { gmd } = require("../gift");
+const { gmd } = require("../pop");
 const axios = require('axios');
 const fs = require('fs');
 const path = require("path");
