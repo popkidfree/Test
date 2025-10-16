@@ -2,42 +2,49 @@ const { gmd } = require("../pop");
 const axios = require("axios");
 
 gmd({
-  pattern: "apk",
-  aliases: ["modapk", "app"],
+  pattern: "app",
+  aliases: ["apk", "modapk"],
   react: "📦",
   category: "download",
-  description: "Download APK files using NexOracle API",
-  use: ".apk <app name>",
+  description: "Download APK files from Aptoide.",
+  use: ".app <app name>",
 }, async (from, Gifted, conText) => {
-  const { mek, reply, react, args, sender, pushName, newsletterJid, botName } = conText;
+  const { mek, reply, react, args, sender, newsletterJid, botName } = conText;
+
+  const query = args.join(" ");
+  if (!query)
+    return reply("❌ Please provide an app name to search.\n💡 Example: *.app whatsapp*");
+
+  // React with hourglass to show loading
+  await react("⏳");
 
   try {
-    const appName = args.join(" ");
-    if (!appName)
-      return reply("❌ Please provide an app name.\n💡 Example: *.apk whatsapp*");
+    const sanitized = query.replace(/[^a-zA-Z0-9\\s]/g, "");
+    const apiUrl = `http://ws75.aptoide.com/api/7/apps/search/query=${sanitized}/limit=1`;
+    const { data } = await axios.get(apiUrl);
 
-    await react("⏳");
+    const app = data?.datalist?.list?.[0];
+    if (!app)
+      return reply("⚠️ No results found for the given app name.");
 
-    const apiUrl = "https://api.nexoracle.com/downloader/apk";
-    const params = {
-      apikey: "free_key@maher_apis",
-      q: appName,
-    };
+    const appSizeMB = (app.size / 1048576).toFixed(2);
 
-    const response = await axios.get(apiUrl, { params });
-    const data = response.data;
+    const apkInfo = `
+╭─⧉  *APK Downloader*
+│
+│ 📦 *Name:* ${app.name}
+│ 🏷 *Package:* ${app.package}
+│ 📅 *Updated:* ${app.updated}
+│ 🧮 *Size:* ${appSizeMB} MB
+│
+╰────⟡ *Powered by Popkid-AI*
+`.trim();
 
-    if (!data || data.status !== 200 || !data.result)
-      return reply("❌ Unable to find the APK. Please try again later.");
-
-    const { name, lastup, package, size, icon, dllink } = data.result;
-
-    // Send initial message
+    // Send app info message
     await Gifted.sendMessage(
       from,
       {
-        image: { url: icon },
-        caption: `📦 *Downloading ${name}...*\n\nPlease wait while we fetch the APK file.`,
+        text: apkInfo,
         contextInfo: {
           mentionedJid: [sender],
           forwardingScore: 5,
@@ -52,31 +59,14 @@ gmd({
       { quoted: mek }
     );
 
-    // Download the APK file
-    const apkRes = await axios.get(dllink, { responseType: "arraybuffer" });
-    if (!apkRes.data) return reply("❌ Failed to download the APK.");
-
-    const apkBuffer = Buffer.from(apkRes.data, "binary");
-
-    const captionMsg = `
-📦 *ᴀᴘᴋ ᴅᴇᴛᴀɪʟs* 📦
-
-🔖 *Name:* ${name}
-📅 *Last Update:* ${lastup}
-📦 *Package:* ${package}
-📏 *Size:* ${size}
-
-> ᴍᴀᴅᴇ ʙʏ ᴘᴏᴘᴋɪᴅ 💎
-`;
-
-    // Send APK file as document
+    // Send the APK file
     await Gifted.sendMessage(
       from,
       {
-        document: apkBuffer,
+        document: { url: app.file.path_alt },
+        fileName: `${app.name}.apk`,
         mimetype: "application/vnd.android.package-archive",
-        fileName: `${name}.apk`,
-        caption: captionMsg,
+        caption: "✅ *Here is the APK file you requested.*",
         contextInfo: {
           mentionedJid: [sender],
           forwardingScore: 5,
@@ -92,9 +82,9 @@ gmd({
     );
 
     await react("✅");
-  } catch (error) {
-    console.error("APK command error:", error);
-    await reply("⚠️ Failed to fetch or send the APK. Try again later.");
+  } catch (err) {
+    console.error("[APK Downloader Error]", err.message);
+    await reply("❌ An error occurred while fetching the APK. Please try again later.");
     await react("❌");
   }
 });
