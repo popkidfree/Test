@@ -458,7 +458,7 @@ const gmdJson = async (url, options = {}) => {
                 'Accept': 'application/json'
             },
             ...options,
-            timeout: 2400000 // 24 mins😂
+            timeout: 2400000 // 24 minutes
         });
         
         if (!res.data) {
@@ -492,7 +492,7 @@ function verifyJidState(jid) {
         console.error('Your verified', jid);
         return false;
     }
-    console.log('Welcome to Gifted Md', jid);
+    console.log('Welcome to Popkid Xtr', jid);
     return true;
 }
 
