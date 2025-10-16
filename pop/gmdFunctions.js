@@ -138,8 +138,8 @@ async function stickerToImage(webpData, options = {}) {
 }
 
 async function withTempFiles(inputBuffer, extension, processFn) {
-  const tempInput = `gift/temp/temp_${Date.now()}.input`;
-  const tempOutput = `gift/temp/temp_${Date.now()}.${extension}`;
+  const tempInput = `pop/temp/temp_${Date.now()}.input`;
+  const tempOutput = `pop/temp/temp_${Date.now()}.${extension}`;
   
   try {
     fs.writeFileSync(tempInput, inputBuffer);
@@ -364,8 +364,8 @@ async function loadSession() {
 
         const [header, b64data] = config.SESSION_ID.split('~');
 
-        if (header !== "Gifted" || !b64data) {
-            throw new Error("❌ Invalid session format. Expected 'Gifted~.....'");
+        if (header !== "POPKID" || !b64data) {
+            throw new Error("❌ Invalid session format. Expected 'POPKID~.....'");
         }
 
         const cleanB64 = b64data.replace('...', '');
