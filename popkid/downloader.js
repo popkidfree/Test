@@ -1,4 +1,4 @@
-const { gmd, GiftedApkDl } = require("../gift"),
+const { gmd, GiftedApkDl } = require("../pop"),
        GIFTED_DLS = require('gifted-dls'),
        giftedDls = new GIFTED_DLS();
 
