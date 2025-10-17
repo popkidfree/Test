@@ -3,12 +3,12 @@ const path = require("path");
 const fs = require('fs').promises;
 
 gmd({
-    pattern: "giftedcdn",
+    pattern: "popkiddcdn",
     react: "⬆️",
     category: "uploader",
-    description: "Upload any file to GiftedCDN",
+    description: "Upload any file to PopkidCDN",
 }, async (from, Gifted, conText) => {
-    await handleUpload(from, Gifted, conText, 'giftedcdn');
+    await handleUpload(from, Gifted, conText, 'popkidcdn');
 });
 
 gmd({
